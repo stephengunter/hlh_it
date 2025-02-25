@@ -15,6 +15,10 @@ using ApplicationCore.Settings;
 using OpenIddict.Server.AspNetCore;
 using ApplicationCore.Helpers;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using ApplicationCore.Helpers.Doc3.Old;
+using ApplicationCore.DataAccess.Doc3;
+using IdentityWeb.Services;
+using Microsoft.Extensions.DependencyModel;
 
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
@@ -67,7 +71,14 @@ try
       options.UseSqlServer(connectionString);
       options.UseOpenIddict();
    });
+
+   services.AddDbContext<Doc3Context>(options =>
+   {
+      options.UseSqlServer(Configuration.GetConnectionString("Doc3")!);
+   });
+
    
+
 
    #region AddIdentity
    services.AddIdentity<User, Role>(options =>
@@ -148,7 +159,9 @@ try
       throw new Exception("app key not been set.");
    }
    
-   services.AddScoped<ICryptoService>(provider => new AesGcmCryptoService(key.DeriveKeyFromString()));
+   services.AddScoped<ICryptoService>(provider => new AesGcmCryptoService(key.DeriveKeyFromString())); 
+   services.AddScoped<IOldReaderHelpers>(provider => new OldReaderHelpers(Configuration.GetConnectionString("Old")!));
+   services.AddScoped<IDoc3Seed, Doc3Seed>();
 
    services.AddCorsPolicy(Configuration);
    services.AddAuthorizationPolicy();

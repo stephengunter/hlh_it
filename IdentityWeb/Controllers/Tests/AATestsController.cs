@@ -12,27 +12,22 @@ using ApplicationCore.Web.Controllers;
 using ApplicationCore.Helpers.Identity;
 using OpenIddict.Abstractions;
 using OpenIddict.Core;
+using IdentityWeb.Services;
 
 namespace IdentityWeb.Controllers.Tests;
 
 public class AATestsController : BaseTestController
 {
-   private readonly IAppService _appService;
-   private readonly IOpenIddictScopeManager _scopeManager;
-   private readonly IUsersService _usersService;
-   private readonly IMapper _mapper;
 
-   public AATestsController(IAppService appService, IUsersService usersService,
-      IOpenIddictScopeManager scopeManager, IMapper mapper)
+   private readonly IDoc3Seed _doc3Seed;
+   public AATestsController(IDoc3Seed doc3Seed)
    {
-      _appService = appService;
-      _usersService = usersService;
-      _scopeManager = scopeManager;
-      _mapper = mapper;
+      _doc3Seed = doc3Seed;
    }
    [HttpGet]
    public async Task<ActionResult> Index()
    {
+      await _doc3Seed.SeedReadersAsync();
       return Ok();   
    }
 }

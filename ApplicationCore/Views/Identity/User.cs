@@ -26,8 +26,9 @@ public class UserViewModel : IBaseRecordView
 
 
    public ICollection<RoleViewModel> Roles { get; set; } = new List<RoleViewModel>();
+   public string FullName { get; set; } = String.Empty;
 
-	public bool HasPassword { get; set; }
+   public bool HasPassword { get; set; }
 
 	public ProfilesViewModel? Profiles { get; set; }
 }

@@ -3,6 +3,7 @@ using Autofac.Core.Activators.Reflection;
 using System.Reflection;
 using ApplicationCore.DataAccess.Identity;
 using ApplicationCore.DataAccess.IT;
+using ApplicationCore.DataAccess.Doc3;
 
 namespace ApplicationCore.DI;
 
@@ -12,6 +13,7 @@ public class ApplicationCoreModule : Autofac.Module
    {
       builder.RegisterGeneric(typeof(IdentityRepository<>)).As(typeof(IIdentityRepository<>)).InstancePerLifetimeScope();
       builder.RegisterGeneric(typeof(ITContextRepository<>)).As(typeof(IITContextRepository<>)).InstancePerLifetimeScope();
+      builder.RegisterGeneric(typeof(Doc3ContextRepository<>)).As(typeof(IDoc3ContextRepository<>)).InstancePerLifetimeScope();
 
       builder.RegisterAssemblyTypes(GetAssemblyByName("ApplicationCore"))
                .Where(t => t.Name.EndsWith("Service"))

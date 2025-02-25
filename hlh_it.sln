@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT_Api", "IT_Api\IT_Api.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityWeb", "IdentityWeb\IdentityWeb.csproj", "{3149CC4C-B230-48A1-939E-C942643B18AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doc3Api", "Doc3Api\Doc3Api.csproj", "{713A5789-4831-4E50-9560-E9A8D9BE229E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3149CC4C-B230-48A1-939E-C942643B18AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3149CC4C-B230-48A1-939E-C942643B18AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3149CC4C-B230-48A1-939E-C942643B18AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713A5789-4831-4E50-9560-E9A8D9BE229E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713A5789-4831-4E50-9560-E9A8D9BE229E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713A5789-4831-4E50-9560-E9A8D9BE229E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713A5789-4831-4E50-9560-E9A8D9BE229E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

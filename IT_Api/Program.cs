@@ -52,10 +52,10 @@ try
    #endregion
 
 
-   string conneStringIdentity = Configuration.GetConnectionString("Default")!;
+   string conneString = Configuration.GetConnectionString("Default")!;
    services.AddDbContext<ITContext>(options =>
    {
-      options.UseSqlServer(conneStringIdentity);
+      options.UseSqlServer(conneString);
    });
 
    

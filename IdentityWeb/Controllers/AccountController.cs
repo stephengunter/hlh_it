@@ -26,7 +26,7 @@ public class AccountController : Controller
 
    [HttpGet]
    [AllowAnonymous]
-   public IActionResult Login(string? returnUrl = null)
+   public async Task<IActionResult> Login(string? returnUrl = null)
    {
       ViewData["ReturnUrl"] = returnUrl;
       return View();
@@ -44,13 +44,13 @@ public class AccountController : Controller
       var user = await _usersService.FindByUsernameAsync(model.Username);
       if (user == null)
       {
-         ModelState.AddModelError("", "身分驗證失敗, 請重新登入.");
+         ModelState.AddModelError("Password", "身分驗證失敗, 請重新登入.");
          return View(model);
       }
       var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
       if (!result.Succeeded)
       {
-         ModelState.AddModelError("", "身分驗證失敗, 請重新登入.");
+         ModelState.AddModelError("Password", "身分驗證失敗, 請重新登入.");
          return View(model);
       }
 

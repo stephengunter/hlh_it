@@ -27,7 +27,7 @@ public class AATestsController : BaseTestController
    [HttpGet]
    public async Task<ActionResult> Index()
    {
-      await _doc3Seed.SeedReadersAsync();
+      
       return Ok();   
    }
 }

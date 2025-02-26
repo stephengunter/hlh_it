@@ -5,6 +5,7 @@ using AutoMapper;
 using Infrastructure.Paging;
 
 namespace ApplicationCore.Helpers;
+
 public static class CategoryHelpers
 {
    public static CategoryViewModel MapViewModel(this Category category, IMapper mapper)
@@ -15,12 +16,12 @@ public static class CategoryHelpers
    }
 
 
-   public static List<CategoryViewModel> MapViewModelList(this IEnumerable<Category> categorys, IMapper mapper)
-      => categorys.Select(item => MapViewModel(item, mapper)).ToList();
+   public static List<CategoryViewModel> MapViewModelList(this IEnumerable<Category> categories, IMapper mapper)
+      => categories.Select(item => MapViewModel(item, mapper)).ToList();
 
-   public static PagedList<Category, CategoryViewModel> GetPagedList(this IEnumerable<Category> categorys, IMapper mapper, int page = 1, int pageSize = 999)
+   public static PagedList<Category, CategoryViewModel> GetPagedList(this IEnumerable<Category> categories, IMapper mapper, int page = 1, int pageSize = 999)
    {
-      var pageList = new PagedList<Category, CategoryViewModel>(categorys, page, pageSize);
+      var pageList = new PagedList<Category, CategoryViewModel>(categories, page, pageSize);
       pageList.SetViewList(pageList.List.MapViewModelList(mapper));
 
       return pageList;
@@ -36,6 +37,6 @@ public static class CategoryHelpers
       return entity;
    }
 
-   public static IEnumerable<Category> GetOrdered(this IEnumerable<Category> categorys)
-     => categorys.OrderBy(item => item.Order);
+   public static IEnumerable<Category> GetOrdered(this IEnumerable<Category> categories)
+     => categories.OrderBy(item => item.Order);
 }

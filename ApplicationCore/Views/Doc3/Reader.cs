@@ -1,14 +1,16 @@
 ﻿using Infrastructure.Entities;
 using Infrastructure.Helpers;
+using Infrastructure.Views;
 
-namespace ApplicationCore.Models.Doc3;
+namespace ApplicationCore.Views.Docs;
 
-public class Reader : EntityBase
+public class ReaderViewModel : EntityBaseView
 {
+   public int ContentId { get; set; }
    public string Name { get; set; } = String.Empty;
    public string UserId { get; set; } = String.Empty;
    public string? Ps { get; set; }
 
-   public ICollection<PostReader> PostReaders { get; set; } = new List<PostReader>();
-}
+   public DateTime? ReadAt { get; set; }
 
+}

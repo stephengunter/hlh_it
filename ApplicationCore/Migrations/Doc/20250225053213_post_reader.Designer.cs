@@ -4,6 +4,7 @@ using ApplicationCore.DataAccess.Doc3;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplicationCore.Migrations.Doc
 {
     [DbContext(typeof(Doc3Context))]
-    partial class Doc3ContextModelSnapshot : ModelSnapshot
+    [Migration("20250225053213_post_reader")]
+    partial class post_reader
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace ApplicationCore.Migrations.Doc
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -64,6 +64,9 @@ namespace ApplicationCore.Migrations.Doc
                     b.Property<string>("Ps")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ReaderId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Removed")
                         .HasColumnType("bit");
 
@@ -80,28 +83,9 @@ namespace ApplicationCore.Migrations.Doc
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Models.Doc3.PostReader", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReaderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ViewedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PostId", "ReaderId");
-
                     b.HasIndex("ReaderId");
 
-                    b.ToTable("PostReaders");
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("ApplicationCore.Models.Doc3.Reader", b =>
@@ -128,33 +112,15 @@ namespace ApplicationCore.Migrations.Doc
                     b.ToTable("Readers");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Models.Doc3.PostReader", b =>
+            modelBuilder.Entity("ApplicationCore.Models.Doc3.Post", b =>
                 {
-                    b.HasOne("ApplicationCore.Models.Doc3.Post", "Post")
-                        .WithMany("PostReaders")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ApplicationCore.Models.Doc3.Reader", "Reader")
-                        .WithMany("PostReaders")
+                        .WithMany()
                         .HasForeignKey("ReaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Post");
-
                     b.Navigation("Reader");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Models.Doc3.Post", b =>
-                {
-                    b.Navigation("PostReaders");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Models.Doc3.Reader", b =>
-                {
-                    b.Navigation("PostReaders");
                 });
 #pragma warning restore 612, 618
         }

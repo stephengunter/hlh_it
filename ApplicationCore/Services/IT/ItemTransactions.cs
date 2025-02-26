@@ -7,9 +7,9 @@ namespace ApplicationCore.Services.IT;
 
 public interface IItemTransactionService
 {
-   Task<IEnumerable<ItemTransaction>> FetchAsync(DateTime sinceDate, DateTime endDate);
-   Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity);
-   Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, DateTime sinceDate, DateTime endDate);
+   Task<IEnumerable<ItemTransaction>> FetchAsync(DateTime sinceDate, DateTime endDate, ICollection<string>? includes = null);
+   Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, ICollection<string>? includes = null);
+   Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, DateTime sinceDate, DateTime endDate, ICollection<string>? includes = null);
    Task<ItemTransaction?> GetByIdAsync(int id);
    Task<ItemTransaction> CreateAsync(ItemTransaction entity, string userId);
    Task UpdateAsync(ItemTransaction entity, string userId);
@@ -25,14 +25,14 @@ public class ItemTransactionService : IItemTransactionService
 	{
       _repository = repository;
 	}
-   public async Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity)
-       => await _repository.ListAsync(new ItemTransactionSpecification(entity));
+   public async Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, ICollection<string>? includes = null)
+       => await _repository.ListAsync(new ItemTransactionSpecification(entity, includes));
 
-   public async Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, DateTime sinceDate, DateTime endDate)
-      => await _repository.ListAsync(new ItemTransactionSpecification(entity, sinceDate.ToStartDate(), endDate.ToEndDate()));
+   public async Task<IEnumerable<ItemTransaction>> FetchAsync(Item entity, DateTime sinceDate, DateTime endDate, ICollection<string>? includes = null)
+      => await _repository.ListAsync(new ItemTransactionSpecification(entity, sinceDate.ToStartDate(), endDate.ToEndDate(), includes));
 
-   public async Task<IEnumerable<ItemTransaction>> FetchAsync(DateTime sinceDate, DateTime endDate)
-     => await _repository.ListAsync(new ItemTransactionSpecification(sinceDate.ToStartDate(), endDate.ToEndDate()));
+   public async Task<IEnumerable<ItemTransaction>> FetchAsync(DateTime sinceDate, DateTime endDate, ICollection<string>? includes = null)
+     => await _repository.ListAsync(new ItemTransactionSpecification(sinceDate.ToStartDate(), endDate.ToEndDate(), includes));
 
 
    public async Task<ItemTransaction?> GetByIdAsync(int id)

@@ -6,6 +6,7 @@ namespace ApplicationCore.Views.Docs;
 
 public class PostViewModel : EntityBaseView, IBaseRecordView
 {
+   public int ContentId { get; set; }
    public string Title { get; set; } = String.Empty;
    public string Content { get; set; } = String.Empty;
    public string Files { get; set; } = String.Empty;
@@ -13,6 +14,7 @@ public class PostViewModel : EntityBaseView, IBaseRecordView
 
    public string Unit { get; set; } = String.Empty;
    public string Author { get; set; } = String.Empty;
+   public string? UserId { get; set; }
    public string? Ps { get; set; }
 
    public bool Removed { get; set; }

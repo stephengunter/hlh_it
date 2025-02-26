@@ -4,6 +4,7 @@ using ApplicationCore.DataAccess.Doc3;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplicationCore.Migrations.Doc
 {
     [DbContext(typeof(Doc3Context))]
-    partial class Doc3ContextModelSnapshot : ModelSnapshot
+    [Migration("20250225064822_postauthor")]
+    partial class postauthor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,12 +93,6 @@ namespace ApplicationCore.Migrations.Doc
 
                     b.Property<int>("ReaderId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ViewedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("PostId", "ReaderId");
 

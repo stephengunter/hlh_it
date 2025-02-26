@@ -16,4 +16,5 @@ dotnet ef migrations add init -s ../IdentityWeb
 dotnet ef migrations remove -s ../IdentityWeb
 dotnet ef database update -s ../IdentityWeb --context IdentityContext
 dotnet ef database update -s ../IT_Api --context ITContext
+dotnet ef database update -s ../Doc3Api --context Doc3Context
 

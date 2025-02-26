@@ -75,7 +75,7 @@ public class AuthorizationController : ControllerBase
       var identity = new ClaimsIdentity(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
       identity.AddClaim(Claims.Subject, user.Id);
       identity.AddClaim(Claims.Name, user.UserName!);
-      identity.AddClaim("email", user.Email!);
+      identity.AddClaim("email", string.IsNullOrEmpty(user.Email) ? "" : user.Email!);
       identity.AddClaim("roles", roles.JoinToString());
 
       identity.SetScopes(scopes);

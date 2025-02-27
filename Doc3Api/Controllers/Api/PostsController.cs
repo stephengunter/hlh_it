@@ -11,6 +11,13 @@ public class PostsController : BaseApiController
    {
       _postService = postService;
    }
+   [HttpGet("i" +
+      "nit")]
+   public async Task<ActionResult> Init()
+   {
+
+      return Ok();
+   }
    [HttpGet]
    public async Task<ActionResult> Index(string by = "")
    {

@@ -19,6 +19,7 @@ using ApplicationCore.DataAccess.IT;
 using System.Text.Json.Serialization;
 using ApplicationCore.DataAccess.Doc3;
 using ApplicationCore.DataAccess.Identity;
+using OpenIddict.Validation.AspNetCore;
 
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
@@ -46,6 +47,16 @@ try
    #endregion
    var services = builder.Services;
 
+   builder.Services.AddOpenIddict()
+    .AddValidation(options =>
+    {
+       // Note: the validation handler uses OpenID Connect discovery
+       // to retrieve the address of the introspection endpoint.
+       options.SetIssuer("https://localhost:7221/");
+       
+    });
+
+
    #region Add Configurations
 
    services.Configure<AppSettings>(Configuration.GetSection(SettingsKeys.App));
@@ -61,7 +72,9 @@ try
       options.UseSqlServer(conneString);
    });
 
-   
+
+   services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+
 
    services.AddCorsPolicy(Configuration);
    services.AddAuthorizationPolicy();

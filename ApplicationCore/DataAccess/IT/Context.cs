@@ -18,6 +18,7 @@ public class ITContext : DbContext
    public DbSet<ItemBalanceSheet> ItemBalanceSheets => Set<ItemBalanceSheet>();
    public DbSet<Category> Categories => Set<Category>();
    public DbSet<CategoryEntity> CategoryEntities => Set<CategoryEntity>();
+   public DbSet<Property> Properties => Set<Property>();
 
    public override int SaveChanges() => SaveChangesAsync().GetAwaiter().GetResult();
 

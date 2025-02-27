@@ -77,8 +77,6 @@ try
       options.UseSqlServer(Configuration.GetConnectionString("Doc3")!);
    });
 
-   
-
 
    #region AddIdentity
    services.AddIdentity<User, Role>(options =>
@@ -167,6 +165,7 @@ try
    services.AddAuthorizationPolicy();
    services.AddDtoMapper();
    //services.AddControllers()
+
    //   .AddJsonOptions(options =>
    //   {
    //      options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

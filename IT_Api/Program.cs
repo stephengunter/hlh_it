@@ -67,7 +67,7 @@ try
    
    services.AddScoped<ICryptoService>(provider => new AesGcmCryptoService(key.DeriveKeyFromString()));
 
-   services.AddCorsPolicy(Configuration);
+   //services.AddCorsPolicy(Configuration);
    services.AddAuthorizationPolicy();
    services.AddDtoMapper();
    services.AddControllers()

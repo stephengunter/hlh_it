@@ -9,7 +9,7 @@ using Ardalis.Specification.EntityFrameworkCore;
 using ApplicationCore.Models.Doc3;
 using ApplicationCore.Migrations.Doc;
 
-namespace Web.Controllers.Tests;
+namespace Do3Api.Controllers.Tests;
 
 public class AATestsController : BaseTestController
 {
@@ -22,15 +22,16 @@ public class AATestsController : BaseTestController
    [HttpGet]
    public async Task<ActionResult> Index()
    {
-      var posts = _context.Posts.ToList();
-      var list = new List<PostReader>();
-      foreach (var post in posts)
-      {
-         var pr = _context.PostReaders.Find(post.Id, post.AuthorId);
-         if (pr != null) list.Add(pr);
-      }
-      _context.PostReaders.RemoveRange(list);
-      _context.SaveChanges();
+      //var units = _context.Units.ToList();
+      //var posts = _context.Posts.ToList();
+      //foreach (var post in posts)
+      //{
+      //   var unit = units.FirstOrDefault(x => x.Name == post.UnitName.Trim());
+      //   if (unit == null) continue;
+      //   post.UnitId = unit.Id;
+      //}
+     
+      //_context.SaveChanges();
       return Ok();
    }
 }

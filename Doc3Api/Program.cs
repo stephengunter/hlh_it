@@ -1,24 +1,13 @@
 using ApplicationCore.Consts;
-
-using ApplicationCore.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using ApplicationCore.Helpers.Doc3.Old;
-using Infrastructure.Helpers;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.IdentityModel.Tokens;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using ApplicationCore.DI;
 using ApplicationCore.Settings;
-using OpenIddict.Server.AspNetCore;
-using ApplicationCore.Helpers;
-using ApplicationCore.DataAccess.IT;
 using System.Text.Json.Serialization;
 using ApplicationCore.DataAccess.Doc3;
-using ApplicationCore.DataAccess.Identity;
 using OpenIddict.Validation.AspNetCore;
 
 Log.Logger = new LoggerConfiguration()
@@ -47,13 +36,29 @@ try
    #endregion
    var services = builder.Services;
 
+   string securityKey = Configuration[$"{SettingsKeys.Auth}:SecurityKey"] ?? "";
+   if (String.IsNullOrEmpty(securityKey))
+   {
+      throw new Exception("Failed Add AddJwtBearer. Empty SecurityKey.");
+   }
    builder.Services.AddOpenIddict()
     .AddValidation(options =>
     {
        // Note: the validation handler uses OpenID Connect discovery
        // to retrieve the address of the introspection endpoint.
        options.SetIssuer("https://localhost:7221/");
-       
+       options.AddAudiences("doc3-api");
+
+       options.UseIntrospection()
+              .SetClientId("doc3-api")
+              .SetClientSecret("1378ce6e-69bf-44a1-b63d-3e72bd7d2ced");
+
+       options.UseSystemNetHttp();
+
+       //options.AddEncryptionKey(new SymmetricSecurityKey(
+       //  Convert.FromBase64String(securityKey)));
+       options.UseAspNetCore();
+
     });
 
 
@@ -74,7 +79,6 @@ try
 
 
    services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
-
 
    services.AddCorsPolicy(Configuration);
    services.AddAuthorizationPolicy();
@@ -104,7 +108,7 @@ try
 
    app.UseStaticFiles();
    app.UseRouting();
-
+   
    app.UseCors("Api");
 
    app.UseAuthentication();

@@ -3,6 +3,7 @@ dotnet run --project ./IdentityWeb
 
 dotnet run --launch-profile https --project ./IdentityWeb
 dotnet run --launch-profile https --project ./IT_Api
+dotnet run --launch-profile https --project ./Doc3Api
 
 dotnet build ./hlh_it.sln && dotnet run --project ./IdentityWeb 
 

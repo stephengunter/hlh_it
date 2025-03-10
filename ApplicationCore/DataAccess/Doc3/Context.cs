@@ -15,6 +15,7 @@ public class Doc3Context : DbContext
       builder.ApplyConfiguration(new PostReaderConfiguration());
    }
    public DbSet<Post> Posts => Set<Post>();
+   public DbSet<Unit> Units => Set<Unit>();
    public DbSet<Reader> Readers => Set<Reader>();
    public DbSet<PostReader> PostReaders => Set<PostReader>();
 

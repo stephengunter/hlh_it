@@ -69,17 +69,18 @@ public static class OidcHelper
    public static IEnumerable<string> GetPublicRequirements()
    {
       return new List<string>()
+
       {
          Requirements.Features.ProofKeyForCodeExchange
       };
    }
-   public static IEnumerable<string> GetApiRequirements()
-   {
-      return new List<string>()
-      {
-         Requirements.Features.ProofKeyForCodeExchange
-      };
-   }
+   //public static IEnumerable<string> GetApiRequirements()
+   //{
+   //   return new List<string>()
+   //   {
+   //      Requirements.Features.ProofKeyForCodeExchange
+   //   };
+   //}
 
    public static string GetAppType(this string? type)
    {

@@ -77,6 +77,7 @@ public class BaseAdminController : BaseController
 }
 
 
+
 [EnableCors("Global")]
 [Route("tests/[controller]")]
 public abstract class BaseTestController : BaseController

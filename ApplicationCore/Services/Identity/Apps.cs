@@ -106,7 +106,11 @@ public class AppService : IAppService
       await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
       {
          Name = entity.ClientId,
-         DisplayName = entity.Name
+         DisplayName = entity.Name,
+         Resources =
+         {
+            entity.ClientId
+         }
       });
       return entity;
    }
@@ -220,7 +224,7 @@ public class AppService : IAppService
          descriptor.Permissions.UnionWith(OidcHelper.GetApiPermissions());
 
          descriptor.Requirements.Clear();
-         descriptor.Requirements.UnionWith(OidcHelper.GetApiRequirements());
+         //descriptor.Requirements.UnionWith(OidcHelper.GetApiRequirements());
       }
 
       return descriptor;

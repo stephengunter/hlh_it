@@ -11,10 +11,15 @@ public class Post : EntityBase, IBaseRecord, IRemovable, ISortable
    public string Title { get; set; } = String.Empty;
    public string Content { get; set; } = String.Empty;
    public string Files { get; set; } = String.Empty;
-   
-   public string Unit { get; set; } = String.Empty;
-   public string Author { get; set; } = String.Empty;
+
+
+   public int UnitId { get; set; }
+   [Required]
+   public virtual Unit? Unit { get; set; }
+   //public string UnitName { get; set; } = String.Empty;
+   //public string Author { get; set; } = String.Empty;
    public int AuthorId { get; set; }
+
    public string? Ps { get; set; }
 
    public ICollection<PostReader> PostReaders { get; set; } = new List<PostReader>();

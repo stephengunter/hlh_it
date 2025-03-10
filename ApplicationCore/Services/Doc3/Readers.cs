@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.DataAccess.Doc3;
 using ApplicationCore.Models.Doc3;
+using ApplicationCore.Models.Identity;
 using ApplicationCore.Specifications.Doc3;
 using Infrastructure.Helpers;
 
@@ -8,6 +9,7 @@ namespace ApplicationCore.Services.Doc3;
 public interface IReaderService
 {
    Task<IEnumerable<Reader>> FetchAsync();
+   Task<Reader?> FindByUserAsync(User user);
    Task<Reader?> GetByIdAsync(int id);
    Task<Reader> CreateAsync(Reader entity);
    Task UpdateAsync(Reader entity);
@@ -27,6 +29,8 @@ public class ReaderService : IReaderService
 
    public async Task<Reader?> GetByIdAsync(int id)
       => await _repository.GetByIdAsync(id);
+   public async Task<Reader?> FindByUserAsync(User user)
+      => await _repository.FirstOrDefaultAsync(new ReaderSpecification(user));
 
    public async Task<Reader> CreateAsync(Reader entity)
       => await _repository.AddAsync(entity);

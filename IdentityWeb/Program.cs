@@ -16,9 +16,10 @@ using OpenIddict.Server.AspNetCore;
 using ApplicationCore.Helpers;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 using ApplicationCore.Helpers.Doc3.Old;
+
+
 using ApplicationCore.DataAccess.Doc3;
 using IdentityWeb.Services;
-using Microsoft.Extensions.DependencyModel;
 
 Log.Logger = new LoggerConfiguration()
    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
@@ -105,21 +106,22 @@ try
     })
     .AddServer(options =>
     {
-       options
-         .AllowClientCredentialsFlow()
-         .AllowAuthorizationCodeFlow()
-           // .RequireProofKeyForCodeExchange() // PKCE for security
-         .AllowRefreshTokenFlow();
-
-
        // Enable the authorization, introspection and token endpoints.
        options
-         .SetTokenEndpointUris("/connect/token")
          .SetAuthorizationEndpointUris("/connect/authorize")
-         .SetUserInfoEndpointUris("/connect/userinfo");
+         .SetTokenEndpointUris("/connect/token")
+         .SetIntrospectionEndpointUris("/connect/introspect");
+       //.SetUserInfoEndpointUris("/connect/userinfo");
 
-       
+       options
+        //.AllowClientCredentialsFlow()
+        .AllowAuthorizationCodeFlow()
+        // .RequireProofKeyForCodeExchange() // PKCE for security
+        .AllowRefreshTokenFlow();
+
+
        //options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.OpenId);
+
 
 
        options.AddEncryptionKey(new SymmetricSecurityKey(
@@ -136,9 +138,9 @@ try
        // resolved from the authorization code to produce access and identity tokens.
        //
        options.UseAspNetCore()
-         .EnableTokenEndpointPassthrough()
-         .EnableAuthorizationEndpointPassthrough()
-         .EnableUserInfoEndpointPassthrough();
+         //.EnableTokenEndpointPassthrough()
+         .EnableAuthorizationEndpointPassthrough();
+         //.EnableUserInfoEndpointPassthrough();
 
     })
    .AddValidation(options =>
@@ -211,17 +213,6 @@ try
    app.UseAuthentication();
    app.UseAuthorization();
 
-   //app.Use(async (context, next) =>
-   //{
-   //   if (context.Request.Path == "/")
-   //   {
-   //      context.Response.ContentType = "text/html";
-   //      await context.Response.SendFileAsync("wwwroot/index.html");
-   //      return;
-   //   }
-
-   //   await next();
-   //});
    app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}")
       .WithStaticAssets();
 

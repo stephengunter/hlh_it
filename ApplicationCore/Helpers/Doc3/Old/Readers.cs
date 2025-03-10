@@ -52,9 +52,10 @@ public class OldReaderHelpers : IOldReaderHelpers
                   ContentId = Convert.ToInt32(reader["contentID"]),
                   Title = reader["contentTitle"] == DBNull.Value ?  "" : reader["contentTitle"].ToString()!,
                   Content = reader["contentMain"] == DBNull.Value ? "" : reader["contentMain"].ToString()!,
+
                   Files = files.JoinToString(),
-                  Unit = reader["contenteunit"] == DBNull.Value ? "" : reader["contenteunit"].ToString()!,
-                  Author = reader["contenteditor"] == DBNull.Value ? "" : reader["contenteditor"].ToString()!,
+                  //UnitName = reader["contenteunit"] == DBNull.Value ? "" : reader["contenteunit"].ToString()!,
+                  //Author = reader["contenteditor"] == DBNull.Value ? "" : reader["contenteditor"].ToString()!,
                   CreatedAt = Convert.ToDateTime(reader["contentTime"]),
                   Order = -1
                });
